@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        f1()
+        console.log(c);
+        console.log(b);
+        console.log(a);
+        function f1() {
+            var a = b = c = 9;
+            console.log(a);
+            console.log(b);
+            console.log(c);
+        }
+        //分析预解析
+        function f1() {
+            //var a=b=c=9;
+            //相当于var a=9,b=9,c=9 (b和c没有var 是直接赋值的)
+            var a;
+            a = b = c = 9;
+            console.log(a); //9
+            console.log(b); //9
+            console.log(c); //9
+        }
+        f1()
+        console.log(c); //9
+        console.log(b); //9
+        console.log(a); //报错（因为全局变量没有var a，var a;是局部变量）
+    </script>
+</body>
+
+</html>
