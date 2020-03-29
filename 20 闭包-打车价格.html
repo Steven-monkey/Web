@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var car = (function () {
+            var start = 13;
+            var total = 0;
+            return {
+                //正常起步价格
+                price: function (n) {
+                    if (n <= 3) {
+                        total = start
+                    } else {
+                        total = start + (n - 3) * 5
+                    }
+                    return total;
+                },
+                //拥堵价格
+                yd: function (flag) {
+                    return flag ? total + 10 : total;
+                }
+            }
+        })()
+        console.log(car.price(5));
+        console.log(car.yd(false));
+
+    </script>
+</body>
+
+</html>

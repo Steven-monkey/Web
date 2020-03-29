@@ -378,7 +378,7 @@
 
 # 						JavaScript高级
 
-- #### ES6中的类（class）
+- ### ES6中的类（class）
 
   ##### 类里面公用的属性和方法必须使用 this 来使用
 
@@ -497,4 +497,429 @@ new Star('刘德华');
 #### 类里面this指向问题
 
 - ##### constructor里面的this指向的是实例对象，方法里面的this指向的是这个方法的调用者
+
+## 构造函数和原型：
+
+- ##### 原型是一个对象。（prototype）
+
+- ##### 原型作用：共享方法
+
+- ##### 一般情况下，我们的公共属性定义到构造函数里面，公共的方法放在我们的原型对象身上。
+
+  ```javascript
+  function Star(name, age) {
+              this.name = name;
+              this.age = age;
+          }
+  				//prototype 添加公共方法
+          Star.prototype.sing = function () {
+              console.log('我会唱歌')
+          }
+  ```
+
+- ##### 构造函数中`prototype` 和对象中的`__proto__`是相等的。
+
+- ##### 原型对象（`prototype`）和对象原型（`__proto__`）
+
+![image-20200327121926060](/Users/houjinshuang/JavaScript/JavaScript学习.assets/image-20200327121926060.png)
+
+- #### 构造函数、原型对象和对象实例
+
+  - ##### 构造函数（function）：构造函数再创建实例对象之前。
+
+  - ##### 原型对象（prototype）：可以添加方法，减少储存
+
+  - ##### 对象实例（__proto__）：new一个构造函数就创建了一个对象实例。
+
+- #### 构造函数、原型对象和对象实例三者关系
+
+  ![image-20200327123310426](/Users/houjinshuang/JavaScript/JavaScript学习.assets/image-20200327123310426.png)
+
+  
+
+- #### 原型链
+
+  ![image-20200327123715364](/Users/houjinshuang/JavaScript/JavaScript学习.assets/image-20200327123715364.png)
+
+  
+
+- #### call()方法
+
+  - ##### call()可以调用方法
+
+  - ##### call()可以改变函数的this指向
+
+  ```JavaScript
+  function fn(){
+    console.log("你就说我帅不帅");
+    console.log(this) //this指向的是window
+  }
+  var 0={
+    name:"monkey"
+  }
+  fn.call() //调用函数（call呼叫函数）
+  fn.call(0)  //现在this指向的是monkey
+  ```
+
+- #### 借用构造函数继承父类属性
+
+  ```javascript
+  				function Father(name, age) {
+              // this指向的是父构造函数的对象实例
+              this.name = name;
+              this.age = age;
+          }
+          function Son(name, age, score) {
+              // this指向的是子构造函数的对象实例
+            	//this参数就是，把父构造函数的this改成子构造函数的this
+              Father.call(this, name, age)
+              this.score = score;
+          }
+          var son = new Son('monkey', 18, 100)
+          console.log(son);
+  ```
+
+### 函数
+
+- #### 函数的调用
+
+  - ##### 普通函数
+
+    ```javascript
+    function(){
+      console.log("人生巅峰")
+    }
+    ```
+
+  - ##### 对象方法
+
+    ```javascript
+    var o={
+      sayHi:function(){
+        console.log("人生巅峰")
+      }
+    }
+    ```
+
+  - ##### 构造函数
+
+    ```JavaScript
+    function Star(){};
+    new Star();
+    ```
+
+  - ##### 绑定事件函数
+
+    ```javascript
+    btn.onclick=function(){}   //点击按钮就可以调用函数了
+    ```
+
+  - ##### 定时器函数
+
+    ```JavaScript
+    setInterval(function(){},1000)  //这个函数是定时器自动1秒钟调用一次
+    ```
+
+  - ##### 立即执行函数
+
+    ```javascript
+    (function(){
+      console.log("人生巅峰")
+    })()
+    ```
+
+### 严格模式
+
+```javascript
+1.给脚本设置严格模式
+<script>
+   "use strict"
+</script>
+2.给函数设置严格模式
+(function(){
+  "use strict"
+})()
+function(){
+  "use strict"
+}
+```
+
+### 高阶函数
+
+##### 	高阶函数定义：对其他函数进行操作的函数，它接受函数作为参数或者将函数作为返回值
+
+```javascript
+函数作为参数
+function(callback){
+  callback&&callback
+}
+fn(function(){aleart('hi')})
+函数作为返回值
+function fn(){
+  return function(){}
+}
+fn()
+```
+
+### 闭包
+
+##### 	闭包定义：指有权访问另一个函数作用域中的变量的函数
+
+#### 递归函数
+
+​	递归函数：函数内部自己调用自己，这个函数就是递归函数
+
+#### 深拷贝和浅拷贝
+
+```javascript
+var o = {
+name: "康彦军",
+age: 18
+}
+var obj = {}
+//浅拷贝
+console.log(Object.assign(o, obj));
+```
+
+# ECMAScript（ES6）
+
+- #### let声明的变量只在所处的块级有效
+
+  ##### 定义：在一对大括号中 使用let关键字声明的变量才具有块级作用域
+
+```javascript
+if(ture){
+  let a=1;
+}
+console.log(a) //a is not undefined
+```
+
+- #### let不存在变量提升
+
+```javascript
+console.log(a); //a is not undefined
+let a=10
+```
+
+- #### 暂时性死区
+
+```javascript
+				//暂时性死区
+        var num = 10;
+        if (true) {
+            console.log(num) //num is a undefined
+            let num = "abc"
+        }
+```
+
+- #### const
+
+  - ##### 具有块级作用域
+
+  - ##### 声明常量是必须赋值
+
+  - ##### 常量赋值后，值不能修改
+
+  - ##### 声明常量，常量就是值（内存地址），不能变量的量。
+
+    ```javascript
+    const ary = [100, 200];
+    ary[0] = 'a';
+    ary[1] = 'b';
+    console.log(ary);
+    ary = ['a', 'b']
+    ```
+
+- #### 结构赋值
+
+  ###### 	ES6中允许从数组中提取值，按照对应位置，对变量赋值，对象也可以实现解约。
+
+  - ##### 数组结构
+
+    ```javascript
+    let [a, b, c] = [1, 2, 3]
+    console.log(a);
+    console.log(b);
+    console.log(c);
+    ```
+
+  - 对象结构
+
+- #### 箭头函数
+
+  ```javascript
+  //箭头函数
+  ()=>{}
+  //赋值函数
+  const fn=()=>{}
+  ```
+
+  - ##### 箭头函数中this关键字，箭头函数中的this，指向的是函数定义的位置
+
+  ```javascript
+  var obj={
+    age:20,
+    sing()=>{
+    //this指向的是obj
+    console.log(this.age) //undefined  因为this指向的是obj对象，obj对象是window全局下的
+  }
+  }
+  ```
+
+- #### 剩余参数
+
+  ```javascript
+  function sum(first1,...args){
+    console.log(first1)
+    console.log(args)
+  }
+  sum(12,20,30)
+  ```
+
+- #### 扩展运算符
+
+  #####  扩展运算符可以将数组、对象转为用逗号分隔的参数序列
+
+  ```javascript
+  let ary=[1,2,3]
+  ...ary  //1,2,3
+  console.log(...ary)//1 2 3
+  ```
+
+  - ##### 合并数组方法一
+
+  ```javascript
+  let ary1=[1,2,3]
+  let ary2=[4,5,6]
+  let ary3=[...ary1,...ary2]
+  console.log(...ary3)
+  ```
+
+  - ##### 合并数组方法二
+
+  ```JavaScript
+  let ary1=[1,2,3]
+  let ary2=[4,5,6]
+  ary1.push(...ary2)
+  console.log(...ary1)
+  ```
+
+- 模板字符串
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# this指向问题
+
+```javascript
+				function Star(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Star.prototype.sing = function () {
+            console.log('我会唱歌')
+        }
+        var ldh = new Star('刘德华', 18)
+```
+
+- ##### 在构造函数中，this指向的是实例对象。
+
+- ##### 原型对象中的this指向的是，被调用者的实例对象。（谁调用，指向谁 ）
+
+### 函数的不同调用方式决定了this的指向不同。
+
+##### 	普通函数：`普通函数中的this指向是 window`
+
+##### 	对象方法：`对象方法this指向的是对象本身`
+
+##### 	构造函数：`构造函数this指向是new之后的实例对象`
+
+##### 						构造函数.prototype.方法=function(){} this指向是之前的构造函数的实例
+
+##### 	绑定事件函数：`绑定事件函数this指向是调用者`
+
+##### 	定时器函数：`定时器的函数中this指向是window`
+
+##### 	立即执行函数：`立即执行函数中this指向是window`
+
+### 改变函数内this指向，JavaScript提供了三种方法 call(),apply(),bind()
+
+#### call()改变this指向
+
+```javascript
+function Father(name,age,sex){
+  this.name=name;
+  this.age=age;
+  this.sex=sex;
+}
+function Son(){
+  //call()改变了方向
+  Father.call(this,name,age,sex)
+}
+var son=new Son('刘德华',20,'男')
+```
+
+#### apply()改变this指向
+
+##### 	apply(需要this改变的方向，数组)
+
+```javascript
+function Father(name,age,sex){
+  this.name=name;
+  this.age=age;
+  this.sex=sex;
+}
+function Son(){
+  //call()改变this方向
+  Father.call(this,name,age,sex)
+}
+var son=new Son('刘德华',20,'男')
+```
+
+#### bind()只是改变this指向，不直接调用函数
+
+```javascript
+var 0={
+  name:'monkey'
+}
+function fn(arr){
+  consloe.log(this)
+  console.log(arr)
+}
+//apply() 第二个参数必须是数组
+fn.apply(0,['pink'])
+```
+
+### 严格模式下this指向
+
+- ##### 严格模式下全局作用域函数中this指向的是undefined
+
+- ##### 严格模式下构造函数不加new调用，this会报错
+
+- ##### 严格模式下定时器this还是指向window
+
+- ##### 严格模式下事件，对象还是指向调用者
+
+- ##### 严格模式下函数的参数不能重复
+
+- ##### 严格模式下函数中可以嵌套函数，非函数中不可以嵌套函数。
 
