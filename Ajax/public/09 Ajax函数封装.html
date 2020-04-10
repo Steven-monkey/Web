@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function ajax(options) {
+            var defaults = {
+                type: 'get',
+                Url: '',
+                header: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                success: function () { },
+                error: function () { }
+            }
+            //使用options对象中的属性覆盖defaults对象中的属性
+            Object.assign(defaults, options)
+            var xhr = new XMLHttpRequest();
+            xhr.open(defaults.type, defaults.Url);
+            var params = {};
+            for (let attr in defaults.data) {
+                params += attr + '=' + defaults.data[attr] + '&';
+            }
+            params = params.substr(0, params.length - 1)
+            //get请求方式:放在请求地址的后面
+            if (defaults.type == 'get') {
+                defaults.Url = defaults.Url + '?' + params
+            }
+            //post请求方式:放在send方法中
+            if (defaults.type = 'post') {
+                var contentType = defaults.header['Content-Type']
+                xhr.setRequestHeader("Content-Type", contentType)
+                if (contentType == 'application/json') {
+                    xhr.send(JSON.stringify(defaults.data))
+                }
+                xhr.send(params)
+            }
+            xhr.onload = function () {
+                var contentType = xhr.getResponseHeader('Content-Type')
+                var responseText = xhr.responseText
+                if (contentType.includes('application/json')) {
+                    responseText = JSON.parse(responseText)
+                }
+                if (xhr.status == 200) {
+                    defaults.success(responseText, xhr)
+                } else {
+                    defaults.error(responseText, xhr)
+                }
+            }
+        }
+        ajax({
+            Url: 'http://localhost:2000/responseData',
+            data: {
+                name: '康彦军',
+                age: 20
+            },
+            success: function (data) {
+                console.log('这里是success函数' + data);
+            },
+        })
+    </script>
+</body>
+
+</html>

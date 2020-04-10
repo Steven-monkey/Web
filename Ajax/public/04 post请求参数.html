@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>
+        <input type="text" id="uname">
+    </p>
+    <p>
+        <input type="text" id="age">
+    </p>
+    <p>
+        <input type="button" id="btn" value="提交">
+    </p>
+    <script>
+        var btn = document.getElementById("btn")
+        var uname = document.getElementById("uname")
+        var age = document.getElementById("age")
+        btn.onclick = function () {
+            var xhr = new XMLHttpRequest()
+            var nameValue = uname.value;
+            var ageValue = age.value;
+            var params = 'username=' + nameValue + '&age=' + ageValue;
+            xhr.open('post', 'http://localhost:2000/post')
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send(params)
+            xhr.onload = function () {
+                console.log(xhr.responseText);
+            }
+        }
+    </script>
+</body>
+
+</html>

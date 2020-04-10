@@ -1,0 +1,13 @@
+
+        1.请求参数位置的问题
+            将请求参数传递到ajax函数内部，再函数内部根据请求方式的不同将请求参数放置在不同的位置
+  
+            get  放在请求地址的后面
+            post 放在send方法中
+        2.请求参数格式问题
+            application/x-www-form-urlencode
+                参数名称= 参数值&参数名称 =参数值
+                name=zhangsan&age=20
+            application/json
+                {name:'zhangsan',age:20}
+

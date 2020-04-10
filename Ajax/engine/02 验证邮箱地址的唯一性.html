@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../assets/bootstrap/dist/css/bootstrap.min.css">
+    <title>验证邮箱地址的唯一性</title>
+    <style>
+        p:not(:empty) {
+            padding: 15px;
+        }
+
+        .container {
+            margin: 100px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-group">
+            <label for="">邮箱地址：</label>
+            <input type="email" id="email" name="" class="form-control" placeholder="请输入邮箱地址">
+        </div>
+        <p id="info"></p>
+    </div>
+    <script src="./js/ajax.js"></script>
+    <script>
+        var emailInput = document.getElementById('email')
+        var info = document.getElementById('info')
+        emailInput.onblur = function () {
+            var email = this.value;
+            var reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
+            if (!reg.test(email)) {
+                //给用户提示信息
+                info.innerHTML = "请输入正确的邮箱格式"
+                info.className = "bg-danger"
+                return;
+            }
+            ajax({
+                type: 'get',
+                url: 'http://localhost:3000/verifyEmailAdress',
+                data: {
+                    email: email
+                },
+                success: function (result) {
+                    info.innerHTML = result.message;
+                    info.className = 'bg-success'
+                },
+                error: function (result) {
+                    info.innerHTML = result.message;
+                    info.className = 'bg-danger'
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

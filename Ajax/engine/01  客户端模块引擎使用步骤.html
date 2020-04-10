@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/template-web.js"></script>
+</head>
+
+<body>
+    <div id="container"></div>
+    <script type="text/html" id="tpl">
+        <h1>{{username}} {{age}}</h1>
+    </script>
+    <script type="text/javascript">
+        var html = template('tpl', { username: '康彦军', age: 30 })
+        document.getElementById('container').innerHTML = html
+    </script>
+</body>
+
+</html>

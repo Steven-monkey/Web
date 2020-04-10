@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>搜索框提示信息</title>
+    <link rel="stylesheet" href="./assets/bootstrap/dist/css/bootstrap.min.css">
+    <style>
+        .container {
+            padding-top: 150px;
+        }
+
+        .list-group {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="请输入搜索关键字" id="search">
+            <ul class="list-group" id="list-box">
+
+            </ul>
+        </div>
+    </div>
+    <script src="./js/ajax.js"></script>
+    <script src="./js/template-web.js"></script>
+    <script type="text/html" id="tpl">
+        {{each result}}
+        <li class="list-group-item">
+            {{$value}}
+        </li>
+        {{/each}}
+    </script>
+    <script>
+        var searchInp = document.getElementById('search')
+        var listBox = document.getElementById('list-box')
+        var timer = null;
+        searchInp.oninput = function () {
+            //用户输入内容
+            var key = this.value;
+            if (key.trim().length == 0) {
+                listBox.style.display = 'none'
+                return;
+            }
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                ajax({
+                    type: 'get',
+                    url: 'http://localhost:3000/searchAutoPrompt',
+                    data: {
+                        key: key
+                    },
+                    success: function (result) {
+                        var html = template('tpl', { result: result })
+                        listBox.innerHTML = html
+                        listBox.style.display = 'block'
+                    },
+                })
+            }, 800)
+        }
+    </script>
+</body>
+
+</html>
