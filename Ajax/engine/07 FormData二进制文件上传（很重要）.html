@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FromData二进制文件上传(很重要)</title>
+    <link rel="stylesheet" href="./assets/bootstrap/dist/css/bootstrap.min.css">
+    <style>
+        .container {
+            padding-top: 60px;
+        }
+
+        .padding {
+            padding: 5px 0 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-grop">
+            <label for="">请选择文件</label>
+            <input type="file" name="" id="file">
+        </div>
+        <video class="padding" id="box" controls="controls">
+
+        </video>
+        <div class="progress">
+            <div class="progress-bar" style="width: 0%;" id="bar">0%</div>
+        </div>
+    </div>
+    <script>
+        let file = document.getElementById("file")
+        let bar = document.getElementById("bar")
+        let video = document.getElementById('box')
+        file.onchange = function () {
+            var formData = new FormData()
+            //这必须是files
+            formData.append('attrName', this.files[0])
+            var xhr = new XMLHttpRequest()
+            xhr.open('post', 'http://localhost:3000/upload')
+            xhr.upload.onprogress = function (ev) {
+                //loaded: 6782976
+                //total: 20421984
+                var result = (ev.loaded / ev.total) * 100 + '%'
+                bar.style.width = result;
+                bar.innerHTML = result;
+            }
+            xhr.send(formData)
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    let result = JSON.parse(xhr.responseText)
+                    video.src = result.path;
+                    video.onload = function () {
+                        box.appendChild(video)
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
