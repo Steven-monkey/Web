@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>$.ajax方法基本使用</title>
+</head>
+
+<body>
+	<button id="btn">发送请求</button>
+	<script src="/js/jquery.min.js"></script>
+	<script>
+		$('#btn').on('click', function () {
+			$.ajax({
+				type: 'post',
+				url: '/base',
+				//指定当前发送jsonp请求
+				dataType: jsonp,
+				//修改callback函数名称
+				jsonp: cb,
+				//指定函数名字
+				jsonpCallback: 'fnName',
+				success: function (response) {
+					console.log(response);
+				},
+				error: function (xhr) {
+					console.log(xhr);
+				}
+			})
+		});
+	</script>
+</body>
+
+</html>

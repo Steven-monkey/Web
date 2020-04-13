@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>serialize使用方法</title>
+</head>
+
+<body>
+    <form action="" id="form">
+        <input type="text" name="username">
+        <input type="password" name="password">
+        <input type="submit" value="提交">
+    </form>
+    <script src="./js/jquery.min.js"></script>
+    <script>
+        $("#form").on('submit', function () {
+            var params = $("#form").serialize()
+            console.log(params);
+            return params
+        })
+    </script>
+</body>
+
+</html>
