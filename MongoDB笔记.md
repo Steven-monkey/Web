@@ -30,7 +30,8 @@
         .then(() => {
             console.log('数据库连接成功');
             //连接失败
-        }).catch(err => {
+        })
+      	.catch(err => {
             console.log(err, '数据库连接失败');
         })
     ```
@@ -143,4 +144,64 @@
     User.find().sort('-age').then(result => console.log(result))
     ```
 
-    
+  - ```JavaScript
+    //skip跳过当前多少条数据，limit限制查询数据
+    User.find().skip(2).limit(2).then(result => console.log(result))
+    ```
+
+- #### 删除文档
+
+  - ##### findOneAndDelete()方法
+
+  ```javascript
+  //查找到一条文档并删除
+  //返回删除的文档
+  User.findOneAndDelete({ _id: '5c09f2d9aeb04b22f846096b' }).then(result => console.log(result))
+  ```
+
+  - ##### deleteMany()方法
+
+  ```javascript
+  //删除多个文档
+  //返回一个对象 n:表示个数   OK：表示成功  deletedCount：删除个数{ n: 5, ok: 1, deletedCount: 5 }
+  User.deleteMany({}).then(result => console.log(result))
+  ```
+
+- #### 更新文档
+
+  - ##### updateOne()方法
+
+  ```javascript
+  //updateOne({查询条件},{要修改的值})
+  User.updateOne({ name: '李四', }, { name: '李狗蛋' }).then(result => console.log(result))
+  ```
+
+  - ##### updateMany()方法
+
+  ```javascript
+  //updateMany({查询条件},{要修改的值})
+  User.updateOne({}, { age: 22 }).then(result => console.log(result))
+  ```
+
+- #### Mongoose文档验证
+
+  - ##### 验证文档
+
+  ```JavaScript
+  const postSchema = new mongoose.Schema({
+      title: {
+          //标题类型
+          type: String,
+          //必须字段（必须填写）
+          required: true,
+          //最小字段
+          minlength: 2,
+          //最大字段
+          maxlength: 5,
+          //去除字符串两边空格
+          trim: true
+      }
+  })
+  ```
+
+- 
