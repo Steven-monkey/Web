@@ -200,8 +200,46 @@
           maxlength: 5,
           //去除字符串两边空格
           trim: true
+      },
+    	age: {
+          type: Number,
+          //数值最小值
+          min: 18,
+          //数值的最大值
+          max: 100,
+      },
+      publicDate: {
+          type: Date,
+          //default:默认值
+          default: Date.now
+      },
+    	category: {
+          type: String,
+          //文档中可以拥有的字段
+          enum: ['html', 'javaScript', 'javascript', 'css']
+      },
+    	validate:{
+        validator:v=>{
+          return v && v.length > 4
+        },
+        message:'传入的值不符合验证规则'
       }
   })
   ```
 
-- 
+  - ##### 控制台输出错误信息
+
+  ```JavaScript
+  Post.create({ title: '新闻直播间', age: 20, category: 'css', author: 'pesis' })
+      .then(result => console.log(result))
+      .catch(error => {
+          const err = error.errors;
+          for (attr in err) {
+              console.log(err[attr]['message']);
+          }
+      })
+  ```
+
+- #### 集合关联
+
+  - 
