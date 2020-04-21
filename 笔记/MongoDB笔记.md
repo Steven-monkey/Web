@@ -15,6 +15,7 @@
 
   ```
   sudo mount -uw /
+  killall Finder
   ```
 
 - #### 使用MongoDB的基本步骤
