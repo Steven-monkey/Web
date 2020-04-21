@@ -6,14 +6,14 @@
 
   ```
   csrutil status ---检查SIP是否开启   System.....:enabled  开启状态
-  csrutil disable ---检查SIP是否开启  successfully....  	关闭状态
   ```
-
+  
 - #### 当文件再只读文件下时：获取操作权限
 
   - ##### 终端执行
 
   ```
+  csrutil disable ---检查SIP是否开启  successfully....  	关闭状态
   sudo mount -uw /
   killall Finder
   ```
