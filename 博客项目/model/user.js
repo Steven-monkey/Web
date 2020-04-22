@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+//验证模块
+const Joi = require('joi')
 //导入密码加密模块
 const bcrypt = require('bcrypt')
 
@@ -44,7 +46,21 @@ async function createUser() {
     })
 }
 // createUser()
+//验证用户信息
+const validateUser = (user) => {
+    //对象的验证规则
+    const Schema = {
+        username: Joi.string().min(2).max(10).required().error(new Error("用户名不符合样式")),
+        email: Joi.string().email().required().error(new Error("邮箱格式不符合样式")),
+        password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required().error(new Error("密码格式不符合样式")),
+        role: Joi.string().valid('normal', 'admin').required().error(new Error("角色值非法")),
+        state: Joi.number().valid(0, 1).required().error(new Error("状态值非法"))
+    };
+    //实施验证
+    return Joi.validate(user, Schema)
+}
 //将用户集合作为模块成员进行导出
 module.exports = {
     User,
+    validateUser
 }

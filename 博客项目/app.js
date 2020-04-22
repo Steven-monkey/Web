@@ -26,6 +26,10 @@ app.use('/admin', require('./middleware/loginGurd'))
 //为路由匹配请求路劲
 app.use('/home', home)
 app.use('/admin', admin)
+app.use((err, req, res, next) => {
+    const result = JSON.parse(err)
+    return res.redirect(`${result.path}?message=${result.message}`)
+})
 //监听端口
 app.listen(80)
 //输出内容
