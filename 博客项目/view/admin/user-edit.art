@@ -41,7 +41,7 @@
                     </select>
                 </div>
                 <div class="buttons">
-                    <input type="submit" class="btn btn-primary" value="提交">
+                    <input type="submit" class="btn btn-primary" value="{{button}}">
                 </div>
             </form>
         </div>

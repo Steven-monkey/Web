@@ -12,7 +12,6 @@ module.exports = async (req, res) => {
         let isValue = brcypt.compare(password, user.password)
         if (isValue) {
             req.session.username = user.username;
-            // res.send("登陆成功")
             //用户重定向
             res.redirect('/admin/user')
             req.app.locals.userInfo = user;
@@ -22,4 +21,5 @@ module.exports = async (req, res) => {
     } else {
         res.status(400).render('admin/error', { msg: '邮箱地址或者密码错误' })
     }
+
 }

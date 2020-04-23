@@ -1,7 +1,7 @@
 //引入用户集合的构造函数
 const { User, validateUser } = require('../../model/user')
 const bcrypt = require('bcrypt')
-module.exports = async (req, res) => {
+module.exports = async (req, res, next) => {
     try {
         await validateUser(req.body)
     } catch (error) {

@@ -9,4 +9,12 @@ admin.get('/user', require('./admin/userPage'))
 admin.get('/logout', require('./admin/loginOut'))
 admin.get('/user-edit', require('./admin/user-edit'))
 admin.post('/user-edit', require('./admin/user-edit-fn'))
+//修改路由
+admin.post('/user-modify', require('./admin/user-modify'))
+//删除路由
+admin.get('/delete', require('./admin/user-delete'))
+//文章列表页面路由
+admin.get('/article', require('./admin/article'))
+//文章编辑页面路由
+admin.get('/article-edit', require('./admin/article-edit'))
 module.exports = admin

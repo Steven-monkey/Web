@@ -28,7 +28,13 @@ app.use('/home', home)
 app.use('/admin', admin)
 app.use((err, req, res, next) => {
     const result = JSON.parse(err)
-    return res.redirect(`${result.path}?message=${result.message}`)
+    let params = []
+    for (const attr in result) {
+        if (attr != 'path') {
+            params.push(attr + '=' + result[attr])
+        }
+    }
+    res.redirect(`${result.path}?${params.join('&')}`)
 })
 //监听端口
 app.listen(80)
