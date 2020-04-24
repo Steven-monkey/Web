@@ -8,7 +8,7 @@
   csrutil status ---检查SIP是否开启   System.....:enabled  开启状态
   ```
   
-- #### 当文件再只读文件下时：获取操作权限
+- ### 当文件再只读文件下时：获取操作权限
 
   - ##### 终端执行
 
@@ -243,4 +243,88 @@
 
 - #### 集合关联
 
-  - 
+- ### 为数据库添加账号
+
+  ### 熏悟空的超级管理员数据库账号
+
+  ```
+  user:root
+  pwd:HJS19971203
+  ```
+
+  ### 熏悟空的普通管理员数据库账号
+
+  ```
+  user:xunWK
+  pwd:xunWK
+  ```
+
+  
+
+  - ##### 连接数据库
+
+    ```
+    //终端输入
+    mongo
+    ```
+
+  - ##### 查看数据库
+
+    ```
+    //终端输入
+    show dbs
+    ```
+
+  - ##### 进入admin数据库，只有进入了admin数据库才可以创建超级管理员账号
+
+    ```
+    //终端输入
+    use admin
+    ```
+
+  - ##### 创建超级管理员账号
+
+    ```
+    //终端输入
+    db.createUser()
+    //实例
+    db.createUser({user:'monkey',pwd:'HJS19971203',roles:['root']})
+    ```
+
+  - ##### 切换数据库
+
+    ```
+    //终端输入
+    use ×××
+    ```
+
+  - ##### 创建普通管理员账号
+
+    ```
+    //终端输入
+    db.createUser()
+    ```
+
+  - ##### 卸载mongodb服务
+
+    ```
+    //终端输入
+    1.net stop mongodb
+    2.mongod --remove
+    ```
+
+  - ##### 删除数据库账号（包括超级管理员）
+
+    ```
+    //终端输出
+    db.system.users.remove({})
+    ```
+
+  - ##### 再项目中使用连接数据库
+
+    ```
+    项目中连接数据库的JavaScript文件中
+    mongoose.connect('mongodb://user:pwd@localhost:27017/blog')
+    ```
+
+    

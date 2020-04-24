@@ -1,5 +1,7 @@
 const { User } = require('../../model/user')
 module.exports = async (req, res) => {
+    //表示当前访问的是用户管理页面
+    req.app.locals.currentLicnk = 'user'
     const { message, id } = req.query;
     if (id) {
         let user = await User.findOne({ _id: id })

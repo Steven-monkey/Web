@@ -1,4 +1,4 @@
-/node_moudle/
+博客项目/node_modules
 /Ajax/engine/assets/bootstrap
 Ajax/03/s1/public/assets/bootstrap
 Ajax/03/s2/public/assets/bootstrap
@@ -6496,3 +6496,4 @@ template/node_modules/_word-wrap@1.2.3@word-wrap/README.md
 博客项目/node_modules/_xdg-basedir@4.0.0@xdg-basedir/license
 博客项目/node_modules/_xdg-basedir@4.0.0@xdg-basedir/package.json
 博客项目/node_modules/_xdg-basedir@4.0.0@xdg-basedir/readme.md
+博客项目/node_modules/formidable
